@@ -1,5 +1,6 @@
 ﻿using InforceApplicationTask.Server.Data.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace InforceApplicationTask.Server.Data
 {
@@ -11,6 +12,8 @@ namespace InforceApplicationTask.Server.Data
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                if (await userManager.Users.AnyAsync() || await roleManager.Roles.AnyAsync()) return;
 
                 var roles = new[] { UserRoles.Admin, UserRoles.User };
                 foreach (var role in roles)

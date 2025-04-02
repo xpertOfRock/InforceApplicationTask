@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InforceApplicationTask.Server.Data.Repositories
 {
-    public class ShortenedUrlRepository(ApplicationDbContext context, ILogger<ShortenedUrlRepository> logger) : IShortenedUrlRepository
+    public class ShortenedUrlRepository(
+        ApplicationDbContext context,
+        ILogger<ShortenedUrlRepository> logger) : IShortenedUrlRepository
     {
         private const int MaxSymbolsInLink = 10;
         private const string Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -38,7 +40,6 @@ namespace InforceApplicationTask.Server.Data.Repositories
 
             try
             {
-
                 var code = await Generate();
 
                 var shortUrl = new ShortUrl
@@ -103,23 +104,32 @@ namespace InforceApplicationTask.Server.Data.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
-
+        public async Task<ShortUrl?> GetByCode(string code)
+        {
+            return await context.ShortnedUrls
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.ShortCode == code);               
+        }
         public async Task<bool> CheckExistingShortenedUrl(string shortenedUrl)
         {
             return await context.ShortnedUrls.AnyAsync(x => x.ShortCode == shortenedUrl);
         }
+        public async Task<bool> CheckExistingLongUrl(string originalUrl)
+        {
+            return await context.ShortnedUrls.AnyAsync(x => x.OriginalUrl == originalUrl);
+        }
 
-        public async Task Update(ShortUrl shortUrl)
+        public async Task Update(Guid id, UpdateShortUrlRequest request)
         {
             await context.Database.BeginTransactionAsync();
 
             try
             {
                 var affectedRows = await context.ShortnedUrls
-                .Where(x => x.Id == shortUrl.Id)
-                .ExecuteUpdateAsync(x => x
-                .SetProperty(su => su.OriginalUrl, shortUrl.OriginalUrl)
-                .SetProperty(su => su.ShortCode, shortUrl.ShortCode));
+                    .Where(x => x.Id == id)
+                    .ExecuteUpdateAsync(x => x
+                    .SetProperty(su => su.OriginalUrl, request.Url)
+                    .SetProperty(su => su.ShortCode, request.ShortUrl));
 
                 if (affectedRows == 0)
                 {
@@ -136,6 +146,6 @@ namespace InforceApplicationTask.Server.Data.Repositories
                 logger.LogError("An exception occured while updating the entity {entity}: {e}", typeof(ShortUrl).Name ,e.Message);
                 await context.Database.CurrentTransaction!.RollbackAsync();
             }                      
-        }
+        }       
     }
 }

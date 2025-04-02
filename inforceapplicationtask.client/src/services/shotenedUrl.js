@@ -1,1 +1,0 @@
-const API_URL = "https://localhost:6062/api/ShortenedUrl";

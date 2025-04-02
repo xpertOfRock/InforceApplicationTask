@@ -1,0 +1,58 @@
+  .create-record-form {
+    width: 80%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 40px;
+    border: 2px solid rgb(35, 80, 177);
+    border-radius: 8px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-title {
+    color: #2a137c;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  
+  .form-input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .form-button {
+    width: 30%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0 auto;
+  }
+  
+  .form-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .form-error {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  

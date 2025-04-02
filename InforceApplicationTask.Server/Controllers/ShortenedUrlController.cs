@@ -1,4 +1,5 @@
-﻿using InforceApplicationTask.Server.Data.Repositories;
+﻿using InforceApplicationTask.Server.Data.Identity;
+using InforceApplicationTask.Server.Data.Repositories;
 using InforceApplicationTask.Server.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@ namespace InforceApplicationTask.Server.Controllers
             _logger = logger;
         }
 
-        [HttpPost("shorten")]
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Post([FromBody] ShortenedUrlRequest request)
         {
@@ -34,12 +35,43 @@ namespace InforceApplicationTask.Server.Controllers
             if (!Uri.TryCreate(request.Url, UriKind.Absolute, out _))
             {
                 return BadRequest("Url is invalid.");
+            }           
+
+            if(await _shortenedUrlRepository.CheckExistingLongUrl(request.Url))
+            {
+                return BadRequest("This url has it's shortned analog in database.");
             }
 
             await _shortenedUrlRepository.Add(new CreateShortUrlRequest(userId, request.Url));
 
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> Put(string id, [FromBody] UpdateShortUrlRequest request)
+        {
+
+            if (!Uri.TryCreate(request.Url, UriKind.Absolute, out _) || request.ShortUrl.Length != 10)
+            {
+                return BadRequest("Url or short url is invalid.");
+            }
+
+            var checkLongUrl = _shortenedUrlRepository.CheckExistingShortenedUrl(request.ShortUrl);
+            var checkShortUrl = _shortenedUrlRepository.CheckExistingShortenedUrl(request.ShortUrl);
+
+            await Task.WhenAll(checkLongUrl, checkShortUrl);
+
+            if (checkLongUrl.Result == true && checkShortUrl.Result == true)
+            {
+                return BadRequest("You cannot use this original url and short url combination.");
+            }
+
+            await _shortenedUrlRepository.Update(Guid.Parse(id), new UpdateShortUrlRequest(request.Url, request.ShortUrl));
+
+            return Ok();
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
@@ -48,14 +80,16 @@ namespace InforceApplicationTask.Server.Controllers
 
             return Ok(result);
         }
+
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> GetById(string id)
         {
             var result = await _shortenedUrlRepository.GetById(Guid.Parse(id));
 
             return Ok(result);
         }
+
         [HttpDelete("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Delete(string id)
@@ -66,7 +100,7 @@ namespace InforceApplicationTask.Server.Controllers
 
             var shortenedUrl = await _shortenedUrlRepository.GetById(Guid.Parse(id));
 
-            if (shortenedUrl is null) return BadRequest($"Entity {typeof(ShortUrl).Name} with Id: {id} does not exist in database.");
+            if (shortenedUrl is null) return NotFound($"Entity {typeof(ShortUrl).Name} with Id: {id} does not exist in database.");
 
             if (userId != shortenedUrl.CreatedBy) return BadRequest("You cannot delete records that was not created by you.");
 
@@ -74,5 +108,19 @@ namespace InforceApplicationTask.Server.Controllers
 
             return Ok();
         }
+
+        [HttpGet("/redirect/{shortCode}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RedirectToOriginalUrl(string shortCode)
+        {
+            var result = await _shortenedUrlRepository.GetByCode(shortCode);
+
+            if(result is null)
+            {
+                return NotFound($"Entity {typeof(ShortUrl).Name} with ShortCode: {shortCode} does not exist in database.");
+            }
+
+            return Redirect(result.OriginalUrl);
+        } 
     }
 }

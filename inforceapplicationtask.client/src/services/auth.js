@@ -61,8 +61,7 @@ export const login = async (emailOrUsername, password) => {
 
     return response.data;
   } catch (error) {
-    console.error('Login failed:', error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || 'Login failed. Please try again.');
+    alert("Failed to login. Try again.")
   }
 };
 
@@ -78,8 +77,7 @@ export const register = async (userData) => {
 
     return response.data;
   } catch (error) {
-    console.error('Registration failed:', error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || 'Registration failed. Please try again.');
+    alert("Failed to register. Try again.")
   }
 };
 
@@ -90,8 +88,7 @@ export const logout = async () => {
     Cookies.remove('user');
     await axios.post(`${API_URL}/Logout`);
   } catch (error) {
-    console.error('Logout failed:', error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || 'Logout failed. Please try again.');
+    alert("Failed to logout. Try again.")
   }
 };
 
@@ -131,7 +128,7 @@ export const getCurrentUsername = () => {
 
     try {
         const userData = JSON.parse(decodeURIComponent(userCookie));
-        return userData.username;
+        return userData.userName;
     } catch (error) {
         console.error("Error:", error);
         return null;
@@ -148,6 +145,7 @@ export const getCurrentUserId = () => {
 
     try {
         const userData = JSON.parse(decodeURIComponent(userCookie));
+        console.log(userData);
         return userData.id;
     } catch (error) {
         console.error("Error:", error);

@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .navbar {
+    background-color: #2a137c;
+    color: #fff;
+    width: 100%;
+  }
+  
+  .navbar-container {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .navbar-brand a {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .navbar-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .navbar-user {
+    font-size: 16px;
+  }
+  
+  .navbar-button {
+    background-color: #067ff1;
+    border: solid;
+    border-color: rgb(35, 80, 177);
+    border-width: 3px;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .navbar-button:hover {
+    background-color: #ffffff;
+    color: rgb(35, 80, 177);
+  }

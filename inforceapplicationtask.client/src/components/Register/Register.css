@@ -1,0 +1,57 @@
+  .register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .register-box {
+    padding: 20px;
+    width: 25%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-heading {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .error-text {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .register-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .register-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #48bb78;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover {
+    background-color: #38a169;
+  }
+  
