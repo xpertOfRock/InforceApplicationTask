@@ -94,7 +94,7 @@ namespace InforceApplicationTask.Server.Controllers
 
             if (shortenedUrl is null) return NotFound($"Entity {typeof(ShortUrl).Name} with Id: {id} does not exist in database.");
 
-            if (userId != shortenedUrl.CreatedBy) return BadRequest("You cannot delete records that was not created by you.");
+            if (userId != shortenedUrl.CreatedBy) return BadRequest("You cannot delete records that were not created by you.");
 
             await _shortenedUrlRepository.Delete(Guid.Parse(id));
 
