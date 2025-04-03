@@ -2,7 +2,6 @@ using InforceApplicationTask.Server.Data;
 using InforceApplicationTask.Server.Data.Identity;
 using InforceApplicationTask.Server.Data.Repositories;
 using InforceApplicationTask.Server.Exceptions.ExceptionHandler;
-using InforceApplicationTask.Server.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -1,8 +1,4 @@
 ﻿using InforceApplicationTask.Server.Data.Identity;
-using InforceApplicationTask.Server.Extensions;
-using InforceApplicationTask.Server.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace InforceApplicationTask.Server.Controllers
 {

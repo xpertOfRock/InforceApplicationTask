@@ -1,5 +1,4 @@
 ﻿using InforceApplicationTask.Server.Exceptions;
-using InforceApplicationTask.Server.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace InforceApplicationTask.Server.Data.Repositories

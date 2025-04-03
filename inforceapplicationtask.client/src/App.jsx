@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import Urls from './components/Urls/Urls'
 import Details from './components/UrlDetails/Details'
 import About from './components/About/About';
+import Home from './components/Home/Home';
 
 function App() {
     const [urls, setUrls] = useState([]);   
@@ -18,7 +19,7 @@ function App() {
         </header>
 
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} /> 
           <Route path="/about" element={<About />}/>
           <Route path="/urls/details/:id" element={<Details />}/>
           <Route path="/urls" element={<Urls />}/>
