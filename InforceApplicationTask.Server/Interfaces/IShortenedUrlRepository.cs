@@ -1,4 +1,4 @@
-﻿namespace InforceApplicationTask.Server.Data.Repositories
+﻿namespace InforceApplicationTask.Server.Interfaces
 {
     public interface IShortenedUrlRepository
     {
@@ -9,6 +9,6 @@
         Task Add(CreateShortUrlRequest request);
         Task Update(Guid id, UpdateShortUrlRequest request);
         Task Delete(Guid id);
-        Task<ShortUrl?> GetByCode(string code);
+        Task<string?> GetOriginalUrlByCode(string code);
     }
 }

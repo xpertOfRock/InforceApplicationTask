@@ -1,4 +1,5 @@
 ﻿using InforceApplicationTask.Server.Exceptions;
+using InforceApplicationTask.Server.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace InforceApplicationTask.Server.Data.Repositories
@@ -77,7 +78,7 @@ namespace InforceApplicationTask.Server.Data.Repositories
                 if (affectedRows == 0)
                 {
                     await context.Database.CurrentTransaction!.RollbackAsync();
-                    throw new NotFoundException<ShortUrl>();
+                    throw new NotFoundException(typeof(ShortUrl).Name);
                 }
 
                 await context.SaveChangesAsync();
@@ -104,11 +105,14 @@ namespace InforceApplicationTask.Server.Data.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
-        public async Task<ShortUrl?> GetByCode(string code)
+        public async Task<string?> GetOriginalUrlByCode(string code)
         {
             return await context.ShortnedUrls
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ShortCode == code);               
+                .Where(x => x.ShortCode == code)
+                .Select(x => x.OriginalUrl)
+                .FirstAsync();
+
         }
         public async Task<bool> CheckExistingShortenedUrl(string shortenedUrl)
         {
@@ -134,7 +138,7 @@ namespace InforceApplicationTask.Server.Data.Repositories
                 if (affectedRows == 0)
                 {
                     await context.Database.CurrentTransaction!.RollbackAsync();
-                    throw new NotFoundException<ShortUrl>();
+                    throw new NotFoundException(typeof(ShortUrl).Name);
                 }
 
                 await context.SaveChangesAsync();

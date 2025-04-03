@@ -22,7 +22,7 @@ function Urls() {
   };
 
   const handleDeleteClick = (id) => {
-    deleteRecord(id).then(() => loadRecords);
+    deleteRecord(id).then(() => loadRecords());
   }
   return (
     <div className="urls-container">
@@ -33,7 +33,9 @@ function Urls() {
           <tr>
             <th>Original URL</th>
             <th>Short URL</th>
-            <th>Actions</th>
+            {isAuthorized() ? (
+              <th>Actions</th>
+            ) : null }           
           </tr>
         </thead>
         <tbody>
@@ -41,23 +43,27 @@ function Urls() {
             <tr key={item.id}>
               <td>{item.originalUrl}</td>
               <td>{item.shortCode}</td>
-              <td>
-                <div className="button-div">
-                    <button
-                    onClick={() => handleViewClick(item.id)}
-                    className="redirect-button"
-                    >               
-                    View
-                    </button>
-
-                    {getCurrentUserId() === item.createdBy ? (<button
-                    onClick={() => handleDeleteClick(item.id)}
-                    className="delete-button"
-                    >
-                    Delete
-                    </button>) : null}
+              {isAuthorized() ? (
+                <td>
+                <div className="button-div">                   
+                      <button
+                        onClick={() => handleViewClick(item.id)}
+                        className="redirect-button"
+                      >               
+                        View
+                      </button>                   
+                    {getCurrentUserId() === item.createdBy ? (
+                      <button
+                        onClick={() => handleDeleteClick(item.id)}
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    ) : null}
                 </div>               
               </td>
+              ) : null}
+              
             </tr>
           ))}
         </tbody>

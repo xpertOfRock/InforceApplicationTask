@@ -88,7 +88,6 @@ export const logout = async () => {
     Cookies.remove('user');
     await axios.post(`${API_URL}/Logout`);
   } catch (error) {
-    alert("Failed to logout. Try again.")
   }
 };
 
@@ -145,7 +144,6 @@ export const getCurrentUserId = () => {
 
     try {
         const userData = JSON.parse(decodeURIComponent(userCookie));
-        console.log(userData);
         return userData.id;
     } catch (error) {
         console.error("Error:", error);
@@ -175,6 +173,5 @@ export const refreshToken = async () => {
     return response.data;
   } catch (error) {
     console.error('Token refresh failed:', error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || 'Token refresh failed. Please login again.');
   }
 };

@@ -5,6 +5,7 @@ import Register from './components/Register/Register';
 import Navbar from './components/Navbar/Navbar';
 import Urls from './components/Urls/Urls'
 import Details from './components/UrlDetails/Details'
+import About from './components/About/About';
 
 function App() {
     const [urls, setUrls] = useState([]);   
@@ -18,6 +19,7 @@ function App() {
 
         <Routes>
           {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/about" element={<About />}/>
           <Route path="/urls/details/:id" element={<Details />}/>
           <Route path="/urls" element={<Urls />}/>
           <Route path="/login" element={<Login />} />

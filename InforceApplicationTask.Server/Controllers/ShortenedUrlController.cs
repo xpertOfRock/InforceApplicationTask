@@ -1,8 +1,7 @@
 ﻿using InforceApplicationTask.Server.Data.Identity;
-using InforceApplicationTask.Server.Data.Repositories;
 using InforceApplicationTask.Server.Extensions;
+using InforceApplicationTask.Server.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InforceApplicationTask.Server.Controllers
@@ -13,15 +12,12 @@ namespace InforceApplicationTask.Server.Controllers
     {
         private readonly IShortenedUrlRepository _shortenedUrlRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger<ShortenedUrlController> _logger;
         public ShortenedUrlController(
             IShortenedUrlRepository shortenedUrlRepository,
-            IHttpContextAccessor httpContextAccessor,
-            ILogger<ShortenedUrlController> logger)
+            IHttpContextAccessor httpContextAccessor)
         {
             _shortenedUrlRepository = shortenedUrlRepository;
             _httpContextAccessor = httpContextAccessor;
-            _logger = logger;
         }
 
         [HttpPost]
@@ -113,14 +109,14 @@ namespace InforceApplicationTask.Server.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RedirectToOriginalUrl(string shortCode)
         {
-            var result = await _shortenedUrlRepository.GetByCode(shortCode);
+            var result = await _shortenedUrlRepository.GetOriginalUrlByCode(shortCode);
 
-            if(result is null)
+            if(string.IsNullOrEmpty(result))
             {
                 return NotFound($"Entity {typeof(ShortUrl).Name} with ShortCode: {shortCode} does not exist in database.");
             }
 
-            return Redirect(result.OriginalUrl);
+            return Redirect(result);
         } 
     }
 }

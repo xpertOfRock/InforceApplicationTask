@@ -1,0 +1,69 @@
+  .details-container {
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    padding: 40px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  
+  .details-title {
+    color: #2a137c;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+  }
+  
+  .details-card {
+    width: 60%;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 2px solid rgb(35, 80, 177);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .details-card p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .details-label {
+    font-weight: bold;
+    color: #2a137c;
+  }
+  
+  .details-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .redirect-button,
+  .back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0 10px;
+  }
+  
+  .redirect-button {
+    background-color: #3b82f6;
+  }
+  
+  .redirect-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .back-button {
+    background-color: #2a137c;
+  }
+  
+  .back-button:hover {
+    background-color: #1f0f5b;
+  }
+  

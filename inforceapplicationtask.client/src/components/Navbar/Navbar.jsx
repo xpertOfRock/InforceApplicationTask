@@ -54,6 +54,7 @@ function Navbar() {
         <div className="navbar-links">
           <Link to="/">Home</Link>
           <Link to="/urls">Urls</Link>
+          <Link to="/about">About</Link>
           {isAuthenticated ? (
             <>
               <span className="navbar-user">Welcome, {getCurrentUsername()}</span>

@@ -1,0 +1,76 @@
+.about-container {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  padding: 40px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: auto;
+  text-align: center;
+}
+
+.about-title {
+  color: #2a137c;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.edit-area {
+  width: 100%;
+  margin: 0 auto;  
+}
+
+.about-textarea {
+  width: 80%;
+  height: auto;
+  min-height: 225px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid rgb(35, 80, 177);
+  border-radius: 8px;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.edit-button,
+.save-button,
+.cancel-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-button {
+  background-color: #3b82f6;
+  display: block;
+  margin: 20px auto;
+}
+
+.edit-button:hover {
+  background-color: #2563eb;
+}
+
+.save-button {
+  background-color: #2a137c;
+}
+
+.save-button:hover {
+  background-color: #1f0f5b;
+}
+
+.cancel-button {
+  background-color: #aaa;
+}
+
+.cancel-button:hover {
+  background-color: #888;
+}

@@ -4,18 +4,19 @@ import { getCurrentToken } from "./auth";
 const API_URL = "https://localhost:6062/api/ShortenedUrl";
 
 
-export const fetchRecords = async (filter) => {
-    try {       
-      const result = await axios.get(API_URL);
-      console.log(result.data);
-      return result.data;
-    } catch (e) {
-      console.error(e);
-    }
-  };
+export const fetchRecords = async () => {
+  try {       
+    const result = await axios.get(API_URL);
+    return result.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
   
   export const fetchRecord = async (id) => {  
     try {
+      const token = getCurrentToken();
+
       const response = await axios.get(`${API_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -55,7 +56,7 @@ export const fetchRecords = async (filter) => {
         } else if (response.status === 403) {
           alert("You cannot add a new record.");
         } else { 
-          alert("Error could be caused by user trying to shorten an existing url.")
+          alert("Error! Invalid URL format or user tries to shorten an existing url.")
         }
       }
       return response.status;

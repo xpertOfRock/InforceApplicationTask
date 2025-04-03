@@ -10,7 +10,7 @@ namespace InforceApplicationTask.Server.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-
+        public DbSet<About> About { get; set; }
         public DbSet<ShortUrl> ShortnedUrls { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -18,6 +18,7 @@ namespace InforceApplicationTask.Server.Data
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new ShortUrlConfiguration());
+            builder.ApplyConfiguration(new AboutConfiguration());
         }    
     }
 }

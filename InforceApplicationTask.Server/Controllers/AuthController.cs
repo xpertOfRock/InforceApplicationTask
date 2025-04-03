@@ -69,6 +69,7 @@ namespace InforceApplicationTask.Server.Controllers
             {
                 Email = request.Email,
                 UserName = request.Username,
+                Role = UserRoles.User
             };
 
             var createUserResult = await _userManager.CreateAsync(newUser, request.Password);

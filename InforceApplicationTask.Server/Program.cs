@@ -1,6 +1,8 @@
 using InforceApplicationTask.Server.Data;
 using InforceApplicationTask.Server.Data.Identity;
 using InforceApplicationTask.Server.Data.Repositories;
+using InforceApplicationTask.Server.Exceptions.ExceptionHandler;
+using InforceApplicationTask.Server.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,7 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddScoped<IShortenedUrlRepository, ShortenedUrlRepository>();
+        builder.Services.AddScoped<IAboutRepository, AboutRepository>();
 
         builder.Services.AddDbContext<ApplicationDbContext>(config =>
             config.UseSqlite(builder.Configuration.GetConnectionString("Database")));
@@ -66,6 +69,8 @@ internal class Program
 
         builder.Services.AddHttpClient();
 
+        builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -97,6 +102,8 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseExceptionHandler(options => { });
 
         app.Run();
     }

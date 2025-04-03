@@ -1,11 +1,11 @@
 ﻿namespace InforceApplicationTask.Server.Exceptions
 {
-    public class NotFoundException<T> : Exception
+    public class NotFoundException : Exception
     {
         private readonly string typeName;
-        public NotFoundException() : base()
+        public NotFoundException(string entityName) : base()
         {
-            typeName = typeof(T).Name;
+            typeName = entityName;
         }
 
         public override string Message => $"Object of {typeName} type was not found.";
